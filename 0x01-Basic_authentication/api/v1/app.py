@@ -14,14 +14,14 @@ app.register_blueprint(app_views)
 print("Blueprint registed")
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
-auth = None
-auth_type = getenv("AUTH_TYPE")
+# auth = None
+# auth_type = getenv("AUTH_TYPE")
 
-access_routes = ['/api/v1/status/',
-                 '/api/v1/unauthorized/', '/api/v1/forbidden/']
-if auth_type == 'auth':
-    from api.v1.auth.auth import Auth
-    auth = Auth()
+# access_routes = ['/api/v1/status/',
+#                  '/api/v1/unauthorized/', '/api/v1/forbidden/']
+# if auth_type == 'auth':
+#     from api.v1.auth.auth import Auth
+#     auth = Auth()
 
 
 # @app.before_request
@@ -41,7 +41,7 @@ if auth_type == 'auth':
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """  Hanldles unauthorized requests """
-    return jsonify({"error": "Unauthorized"}), 401
+    return jsonify({"error" : "Unauthorized"}), 401
 
 
 # @app.errorhandler(403)
