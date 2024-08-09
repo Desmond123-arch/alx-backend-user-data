@@ -39,8 +39,7 @@ def b4_request() -> None:
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """ Unauthorized handler
-    """
+    """  Hanldles unauthorized requests """
     return jsonify({"error": "Unauthorized"}), 401
 
 
