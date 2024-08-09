@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 print("Blueprint registed")
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+
 auth = None
 auth_type = getenv("AUTH_TYPE")
 
@@ -23,18 +24,18 @@ if auth_type == 'auth':
     auth = Auth()
 
 
-@app.before_request
-def b4_request() -> None:
-    """ Called before each request"""
-    if auth is None:
-        return
-    if not auth.require_auth(request.path, access_routes):
-        return
-    if auth.authorization_header(request) == None:
-        abort(401)
+# @app.before_request
+# def b4_request() -> None:
+#     """ Called before each request"""
+#     if auth is None:
+#         return
+#     if not auth.require_auth(request.path, access_routes):
+#         return
+#     if auth.authorization_header(request) == None:
+#         abort(401)
 
-    if auth.current_user(request) == None:
-        abort(403)
+#     if auth.current_user(request) == None:
+#         abort(403)
 
 
 @app.errorhandler(401)
