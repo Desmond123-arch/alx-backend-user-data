@@ -15,6 +15,7 @@ class Auth:
     def authorization_header(self, request=None) -> str:
         """ Return now, request will be a flask object"""
         return None
+
     def current_user(self, request=None) -> TypeVar('User'):
         """Current user object"""
         return None
