@@ -31,7 +31,6 @@ def b4_request() -> None:
     if not auth.require_auth(request.path, access_routes):
         return
     if auth.authorization_header(request) == None:
-        print("")
         abort(401)
 
     if auth.current_user(request) == None:
