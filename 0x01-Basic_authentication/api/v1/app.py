@@ -67,7 +67,6 @@ def before_request() -> None:
     if auth.require_auth(request.path, excluded_paths):
         # Check if the authorization header is missing
         # Unauthorized
-        print(request.headers.get("Authorization"))
         if auth.authorization_header(request) is None:
             abort(401)
 

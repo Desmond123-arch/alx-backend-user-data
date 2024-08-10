@@ -5,6 +5,7 @@ from api.v1.auth.auth import Auth
 import base64
 import binascii
 from api.v1.views.users import User
+from api.v1.auth.auth import Auth
 
 
 class BasicAuth(Auth):
@@ -61,3 +62,14 @@ class BasicAuth(Auth):
         if not user.is_valid_password(pwd=user_pwd):
             return None
         return user
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """ Retireve the current user instance for a request """
+        if request is None:
+            return None
+        auth = Auth()
+        header = auth.authorization_header(request)
+        val = self.extract_base64_authorization_header(header)
+        decoded = self.decode_base64_authorization_header(val)
+        user, pwd = self.extract_user_credentials(decoded)
+        return self.user_object_from_credentials(user, pwd)
