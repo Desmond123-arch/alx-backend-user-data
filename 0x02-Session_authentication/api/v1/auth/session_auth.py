@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """ Contains the session authentication class """
 from api.v1.auth.auth import Auth
+from api.v1.views.users import User
+from typing import TypeVar
 from uuid import uuid4
 import os
 
@@ -28,3 +30,8 @@ class SessionAuth(Auth):
         if not isinstance(session_id, str):
             return None
         return SessionAuth.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        cookie = self.session_cookie(request)
+        user_id = self.user_id_by_session_id.get(cookie)
+        return User.get(user_id)
