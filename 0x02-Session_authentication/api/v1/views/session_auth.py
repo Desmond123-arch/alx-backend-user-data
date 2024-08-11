@@ -19,7 +19,6 @@ def login():
     if len(User.search({'email': email})) == 0:
         return jsonify({"error": "no user found for this email"}), 404
     user = User.search({'email': email})[0]
-    print(user)
     if not user.is_valid_password(pwd=password):
         return jsonify({"error": "wrong password"}), 401
     else:
@@ -35,6 +34,6 @@ def login():
 def logout():
     """ Logouts the user"""
     from api.v1.app import auth
-    if not auth.destroy_session(request):
+    if auth.destroy_session(request) is False:
         abort(404)
     return jsonify({}), 200

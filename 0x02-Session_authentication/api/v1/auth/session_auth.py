@@ -43,8 +43,14 @@ class SessionAuth(Auth):
             return False
         if not self.session_cookie(request):
             return False
-        key = self.user_id_for_session_id(self.session_cookie(request))
-        if not key:
+        if not self.session_cookie(request):
             return False
-        self.user_id_by_session_id.pop(key)
-        return True
+        cookie = str(self.session_cookie(request))
+        print(cookie)
+        print(SessionAuth.user_id_by_session_id)
+        if cookie in SessionAuth.user_id_by_session_id:
+            SessionAuth.user_id_by_session_id.pop(cookie)
+            return True
+        else:
+            # Handle the case where the key is not found
+            return False
