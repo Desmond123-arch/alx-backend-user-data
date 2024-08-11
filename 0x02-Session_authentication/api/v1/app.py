@@ -67,17 +67,13 @@ def before_request() -> None:
     if auth is None:
         return
 
-    # Skip if the path is in the excluded_paths
     if auth.require_auth(request.path, excluded_paths):
-        # Check if the current user is missing
-        # Forbidden
-        if auth.current_user(request) is None:
-            abort(403)
+        if auth.authorization_header(request) is None\
+                and auth.session_cookie(request) is None:
+            abort(401)  # Unathorized
 
-        if auth.authorization_header(request) is None and\
-                auth.session_cookie(request) is None:
-            abort(401)
-            return None
+        if auth.current_user(request) is None:
+            abort(403)  # Forbidden
     request.current_user = auth.current_user(request)
 
 
