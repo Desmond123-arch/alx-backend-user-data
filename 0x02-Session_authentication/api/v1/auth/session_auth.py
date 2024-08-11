@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """ Contains the session authentication class """
 from api.v1.auth.auth import Auth
 
