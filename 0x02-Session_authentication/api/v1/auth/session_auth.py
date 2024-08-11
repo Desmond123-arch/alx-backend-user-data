@@ -21,6 +21,7 @@ class SessionAuth(Auth):
 
     def user_id_for_session_id(self,
                                session_id: str = None) -> str:
+        """ Retireves the user id through the session id"""
         if session_id is None:
             return None
         if not isinstance(session_id, str):
