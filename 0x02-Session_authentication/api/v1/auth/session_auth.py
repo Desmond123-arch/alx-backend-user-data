@@ -32,6 +32,7 @@ class SessionAuth(Auth):
         return SessionAuth.user_id_by_session_id.get(session_id)
 
     def current_user(self, request=None) -> TypeVar('User'):
+        """ Returns the current user through the session id"""
         cookie = self.session_cookie(request)
         user_id = self.user_id_by_session_id.get(cookie)
         return User.get(user_id)
