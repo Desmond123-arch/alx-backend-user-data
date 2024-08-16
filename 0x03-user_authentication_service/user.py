@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+"""" Contains the user class """
 from base import Base
 from sqlalchemy import Column, Integer, String
 
