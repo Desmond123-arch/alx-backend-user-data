@@ -64,3 +64,7 @@ class DB:
         except KeyError:
             session.rollback()
             raise ValueError
+        except NoResultFound:
+            raise ValueError
+        except KeyError:
+            raise ValueError
