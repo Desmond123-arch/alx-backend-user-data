@@ -44,12 +44,10 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """ Returns the first row found in the users """
         try:
-            session = self.__session
-            result = session.query(User).filter_by(**kwargs).one()
-            return result
-        except NoResultFound:
-            raise NoResultFound
-        except KeyError:
+            result = self._session.query(User).filter_by(**kwargs).one()
+            if result is None:
+                raise NoResultFound
+        except TypeError:
             raise InvalidRequestError
 
     def update_user(self, user_id: int, **kwargs) -> None:
