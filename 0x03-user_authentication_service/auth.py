@@ -22,9 +22,8 @@ class Auth:
         """ Register a user to the database"""
         session = self._db._session
         try:
-            user = session.query(User).filter_by(email=email).one()
+            user = self._db.find_user_by(email=email)
         except NoResultFound:
             raise ValueError(f"User {email} already exists.")
-        new_user = User(email=email, hashed_password=_hash_password(password))
-        session.commit()
+        new_user = self._db.add_user(email, _hash_password(password))
         return new_user
