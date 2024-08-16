@@ -53,11 +53,9 @@ class DB:
 
     def update_user(self, id, **kwargs):
         """ Updates the user with the various kwargs values"""
-        if id is None:
-            return None
         try:
             session = self.__session
-            user = session.query(User).filter_by(id=id).update({**kwargs})
+            session.query(User).filter_by(id=id).update({**kwargs})
             session.commit()
             return None
         except KeyError:
