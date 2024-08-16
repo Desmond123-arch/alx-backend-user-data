@@ -54,17 +54,14 @@ class DB:
 
     def update_user(self, user_id, **kwargs) -> None:
         """ Updates the user with the various kwargs values"""
-        try:
-            session = self.__session
-            user = self.find_user_by(id=user_id)
-            for key, value in kwargs.items():
+        session = self.__session
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if hasattr(user, key):
                 setattr(user, key, value)
-            session.commit()
-            return None
-        except KeyError:
-            session.rollback()
-            raise ValueError
-        except NoResultFound:
-            raise ValueError
-        except KeyError:
-            raise ValueError
+            else:
+                raise ValueError
+            print(key, value)
+        session.commit()
+        return None
+        
