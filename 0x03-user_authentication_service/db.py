@@ -50,3 +50,14 @@ class DB:
             raise NoResultFound
         except KeyError:
             raise InvalidRequestError
+
+    def update_user(self, id, **kwargs):
+        """ Updates the user with the various kwargs values"""
+        if id is None:
+            return None
+        try:
+            session = self.__session
+            user = session.query(User).filter_by(id=id).update({**kwargs})
+            session.commit()
+        except InvalidRequestError:
+            raise ValueError
