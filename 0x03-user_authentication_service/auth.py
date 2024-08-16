@@ -88,4 +88,5 @@ class Auth:
         except NoResultFound:
             raise ValueError
         setattr('user', 'hashed_password', _hash_password(password))
+        setattr(user, 'reset_token', None)
         return None
