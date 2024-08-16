@@ -59,6 +59,7 @@ class DB:
             session = self.__session
             user = session.query(User).filter_by(id=id).update({**kwargs})
             session.commit()
+            return None
         except KeyError:
             session.rollback()
             raise ValueError
