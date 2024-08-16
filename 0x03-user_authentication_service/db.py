@@ -51,11 +51,11 @@ class DB:
         except KeyError:
             raise InvalidRequestError
 
-    def update_user(self, id, **kwargs):
+    def update_user(self, user_id, **kwargs):
         """ Updates the user with the various kwargs values"""
         try:
             session = self.__session
-            session.query(User).filter_by(id=id).update({**kwargs})
+            session.query(User).filter_by(id=user_id).update({**kwargs})
             session.commit()
             return None
         except KeyError:
