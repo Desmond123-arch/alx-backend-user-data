@@ -56,10 +56,11 @@ class DB:
         """ Updates the user with the various kwargs values"""
         try:
             session = self.__session
-            session.query(User).filter_by(id=user_id).update({**kwargs})
+            user = self.find_user_by(id=user_id)
+            for key, value in kwargs:
+                setattr(user, key, value)
             session.commit()
             return None
-        except NoResultFound:
-            raise ValueError
         except KeyError:
+            session.rollback()
             raise ValueError
