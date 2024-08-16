@@ -49,6 +49,7 @@ class DB:
                 raise NoResultFound
         except TypeError:
             raise InvalidRequestError
+        return result
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """ Updates the user with the various kwargs values"""
