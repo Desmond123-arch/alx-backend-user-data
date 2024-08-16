@@ -52,7 +52,7 @@ class DB:
         except KeyError:
             raise InvalidRequestError
 
-    def update_user(self, user_id:int, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """ Updates the user with the various kwargs values"""
         session = self.__session
         user = self.find_user_by(id=user_id)
