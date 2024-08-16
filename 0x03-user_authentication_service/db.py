@@ -57,7 +57,7 @@ class DB:
         try:
             session = self.__session
             user = self.find_user_by(id=user_id)
-            for key, value in kwargs:
+            for key, value in kwargs.items():
                 setattr(user, key, value)
             session.commit()
             return None
